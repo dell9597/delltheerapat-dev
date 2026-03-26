@@ -94,7 +94,7 @@ export const translations = {
       headline: "Thinking Out",
       headlineAccent: "Loud",
       sub: "Notes from the architecture trench — patterns, tools, and hard lessons.",
-      readMore: "Read more →",
+      readMore: "Read more",
       posts: [
         {
           tag: "Architecture",
