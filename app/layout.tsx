@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const sora = Sora({
@@ -31,11 +32,6 @@ export const metadata: Metadata = {
     "TypeScript",
     "Web Performance",
     "SEO Optimization",
-    "นักพัฒนาเว็บ",
-    "โปรแกรมเมอร์",
-    "พัฒนาเว็บไซต์",
-    "React",
-    "WordPress",
   ],
   authors: [{ name: "Your Name" }],
   creator: "Your Name",
@@ -46,22 +42,13 @@ export const metadata: Metadata = {
     url: "https://yourdomain.com",
     siteName: "Frontend Architect Portfolio",
     title: "Frontend Architect | React & WordPress Expert",
-    description:
-      "Senior Frontend Developer turning complex designs into high-performance web systems.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Frontend Architect Portfolio",
-      },
-    ],
+    description: "Senior Frontend Developer turning complex designs into high-performance web systems.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Frontend Architect Portfolio" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Frontend Architect | React & WordPress Expert",
-    description:
-      "Senior Frontend Developer turning complex designs into high-performance web systems.",
+    description: "Senior Frontend Developer turning complex designs into high-performance web systems.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -91,53 +78,52 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
+      <body className={`${sora.variable} ${jetbrains.variable} font-sans antialiased bg-white dark:bg-neutral-950`}>
+        
+        {/* 1. Theme Detection Script: รันก่อน UI เริ่มทำงานเพื่อป้องกันการกระพริบของสี */}
+        <Script id="theme-logic" strategy="beforeInteractive">
+          {`
+            (function() {
+              try {
                 const stored = localStorage.getItem('theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 if (stored === 'dark' || (!stored && prefersDark)) {
                   document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
                 }
-              })();
-            `,
-          }}
-        />
-        <script
+              } catch (e) {}
+            })();
+          `}
+        </Script>
+
+        {/* 2. JSON-LD Structured Data: สำหรับ SEO */}
+        <Script
+          id="json-ld-schema"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Your Name",
-              jobTitle: "Frontend Architect",
-              description:
-                "Senior Frontend Developer specializing in React, Next.js, and WordPress architectures.",
-              url: "https://yourdomain.com",
-              sameAs: [
-                "https://github.com/yourusername",
-                "https://linkedin.com/in/yourusername",
-              ],
-              knowsAbout: [
-                "React",
-                "Next.js",
-                "TypeScript",
-                "WordPress",
-                "Web Performance",
-                "SEO",
-              ],
-              offers: {
-                "@type": "Offer",
-                description:
-                  "Frontend development, WordPress development, and web performance consulting",
-              },
-            }),
-          }}
-        />
-      </head>
-      <body className={`${sora.variable} ${jetbrains.variable} font-sans`}>
+          strategy="afterInteractive"
+        >
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Your Name",
+            jobTitle: "Frontend Architect",
+            description: "Senior Frontend Developer specializing in React, Next.js, and WordPress architectures.",
+            url: "https://yourdomain.com",
+            sameAs: [
+              "https://github.com/yourusername",
+              "https://linkedin.com/in/yourusername",
+            ],
+            knowsAbout: [
+              "React", "Next.js", "TypeScript", "WordPress", "Web Performance", "SEO",
+            ],
+            offers: {
+              "@type": "Offer",
+              description: "Frontend development, WordPress development, and web performance consulting",
+            },
+          })}
+        </Script>
+
         {children}
       </body>
     </html>
