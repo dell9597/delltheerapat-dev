@@ -5,6 +5,7 @@ const nextConfig = {
     unoptimized: true,
   },
   basePath: '/delltheerapat-dev',
+  assetPrefix: '/delltheerapat-dev',
 };
 
 export default nextConfig;
