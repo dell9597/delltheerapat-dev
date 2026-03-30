@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { TrendingUp, ArrowUpRight, Tag, BarChart3 } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { 
+  TrendingUp, ArrowUpRight, Tag, BarChart3, 
+  X, ExternalLink, Monitor, Smartphone, Globe 
+} from "lucide-react";
 import { translations, Lang } from "@/lib/i18n";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -16,6 +19,10 @@ const cardColors = [
 export default function WorkSection({ lang }: { lang: Lang }) {
   const t = translations[lang].work;
   const container = useRef<HTMLDivElement>(null);
+
+  // States for Preview Modal
+  const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
 
   useGSAP(() => {
     // Shimmer effect on hover
@@ -86,20 +93,19 @@ export default function WorkSection({ lang }: { lang: Lang }) {
                   <TrendingUp className="w-3.5 h-3.5 animate-bounce" />
                   {project.metric}
                 </motion.div>
+                  {/* Client & Title */}
+                  <div className="mb-6">
+                    <p className="text-[10px] text-orange-500 dark:text-orange-400 font-black uppercase tracking-[0.3em] mb-2">
+                      {project.client}
+                    </p>
+                    <h3 className="text-2xl font-bold text-neutral-900 dark:text-white leading-tight group-hover:text-orange-500 transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                  </div>
 
-                {/* Client & Title */}
-                <div className="mb-6">
-                  <p className="text-[10px] text-orange-500 dark:text-orange-400 font-bold uppercase tracking-[0.2em] mb-2">
-                    {project.client}
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-8 min-h-[4rem] line-clamp-3">
+                    {project.desc}
                   </p>
-                  <h3 className="text-2xl font-bold text-neutral-900 dark:text-white leading-tight group-hover:text-orange-500 transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                </div>
-
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-8 h-12 overflow-hidden line-clamp-2">
-                  {project.desc}
-                </p>
 
                 {/* Result Box */}
                 <div className="bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-100 dark:border-neutral-700/50 rounded-2xl p-5 mb-8 transition-colors duration-300 group-hover:bg-neutral-100 dark:group-hover:bg-neutral-800">
@@ -131,21 +137,72 @@ export default function WorkSection({ lang }: { lang: Lang }) {
                 </div>
 
                 {/* View Case Action */}
-                <motion.button 
-                  whileHover={{ x: 5 }}
-                  className={`flex items-center gap-2 text-sm font-bold ${cardColors[i].metric} transition-all`}
-                >
-                  <span className="relative">
-                    {t.viewCase}
-                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-current scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                  </span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </motion.button>
+                <div className="mt-auto pt-6 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
+                  <motion.button 
+                    whileHover={{ x: 5 }}
+                    className={`flex items-center gap-2 text-sm font-bold ${cardColors[i].metric} transition-all`}
+                  >
+                    <span className="relative">
+                      {t.viewCase}
+                      <span className="absolute bottom-0 left-0 w-full h-[2px] bg-current scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                    </span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </motion.button>
+                  <a href={project.url} target="_blank" className="text-neutral-300 hover:text-orange-500 transition-colors">
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+      <AnimatePresence>
+        {selectedUrl && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-neutral-950/90 backdrop-blur-xl"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 40 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 40 }}
+              className="relative w-full max-w-6xl h-full bg-white dark:bg-neutral-900 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col border border-white/10"
+            >
+              {/* Toolbar */}
+              <div className="flex items-center justify-between px-8 py-5 border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+                <div className="flex items-center gap-6">
+                  <div className="flex gap-2">
+                    <div className="w-3.5 h-3.5 rounded-full bg-red-500/20 border border-red-500/50" />
+                    <div className="w-3.5 h-3.5 rounded-full bg-amber-500/20 border border-amber-500/50" />
+                    <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/20 border border-emerald-500/50" />
+                  </div>
+                  <div className="hidden md:flex bg-neutral-100 dark:bg-neutral-800 p-1.5 rounded-xl gap-1">
+                    <button onClick={() => setViewMode("desktop")} className={`p-2 rounded-lg transition-all ${viewMode === 'desktop' ? 'bg-white dark:bg-neutral-700 shadow-sm text-orange-500' : 'text-neutral-400'}`}><Monitor className="w-4 h-4" /></button>
+                    <button onClick={() => setViewMode("mobile")} className={`p-2 rounded-lg transition-all ${viewMode === 'mobile' ? 'bg-white dark:bg-neutral-700 shadow-sm text-orange-500' : 'text-neutral-400'}`}><Smartphone className="w-4 h-4" /></button>
+                  </div>
+                </div>
+
+                <div className="hidden lg:flex items-center gap-2 bg-neutral-50 dark:bg-neutral-800 px-4 py-2 rounded-full border border-neutral-200 dark:border-neutral-700">
+                  <Globe className="w-3 h-3 text-neutral-400" />
+                  <span className="text-[10px] font-bold text-neutral-500 truncate max-w-[300px]">{selectedUrl}</span>
+                </div>
+
+                <button onClick={() => setSelectedUrl(null)} className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full transition-colors"><X className="w-7 h-7 text-neutral-400" /></button>
+              </div>
+
+              {/* Iframe View */}
+              <div className="flex-1 bg-neutral-50 dark:bg-neutral-950 flex justify-center items-start overflow-hidden p-4 md:p-8">
+                <motion.div 
+                  animate={{ width: viewMode === "desktop" ? "100%" : "375px" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 35 }}
+                  className="h-full bg-white shadow-2xl rounded-t-xl overflow-hidden relative"
+                >
+                  <iframe src={selectedUrl} className="w-full h-full border-none shadow-inner" title="Preview" />
+                </motion.div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

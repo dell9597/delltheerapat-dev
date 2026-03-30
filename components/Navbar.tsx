@@ -62,7 +62,7 @@ export default function Navbar({ lang, onLangChange }: NavbarProps) {
               <Code2 className="w-4 h-4 text-white" />
             </div>
             <span className="font-bold text-sm tracking-tight text-neutral-900 dark:text-white">
-              dev<span className="text-orange-500">.arch</span>
+              dell<span className="text-orange-500">theerapat</span>
             </span>
           </a>
 

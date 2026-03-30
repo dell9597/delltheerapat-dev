@@ -18,9 +18,9 @@ export default function ContactSection({ lang }: { lang: Lang }) {
   };
 
   const socials = [
-    { icon: Mail, label: t.email, href: "mailto:hello@yourdomain.com", value: "hello@yourdomain.com", color: "hover:text-blue-500" },
-    { icon: Linkedin, label: t.linkedin, href: "https://linkedin.com/in/yourusername", value: "linkedin.com/in/yourusername", color: "hover:text-sky-600" },
-    { icon: Github, label: t.github, href: "https://github.com/yourusername", value: "github.com/yourusername", color: "hover:text-neutral-900 dark:hover:text-white" },
+    { icon: Mail, label: t.email, href: "mailto:theerapat.traikaew@gmail.com", value: "theerapat.traikaew@gmail.com", color: "hover:text-blue-500" },
+    { icon: Linkedin, label: t.linkedin, href: "https://linkedin.com/in/dell-theerapat", value: "linkedin.com/in/dell-theerapat", color: "hover:text-sky-600" },
+    { icon: Github, label: t.github, href: "https://github.com/dell9597", value: "https://github.com/dell9597", color: "hover:text-neutral-900 dark:hover:text-white" },
   ];
 
   return (

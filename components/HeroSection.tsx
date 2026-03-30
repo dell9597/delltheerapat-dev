@@ -124,7 +124,7 @@ export default function HeroSection({ lang }: { lang: Lang }) {
             {[
               { value: t.stat1, label: t.stat1sub },
               { value: t.stat2, label: t.stat2sub },
-              { value: t.stat3, label: t.stat3sub },
+              // { value: t.stat3, label: t.stat3sub },
             ].map((stat, i) => (
               <div key={i} className="group cursor-default">
                 <div className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-0.5 group-hover:text-orange-500 group-hover:-translate-y-1 transition-all duration-300">

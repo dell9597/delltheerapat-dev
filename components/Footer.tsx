@@ -31,7 +31,7 @@ export default function Footer({ lang }: { lang: Lang }) {
                 <Code2 className="w-4 h-4 text-white" />
               </div>
               <span className="font-bold text-sm tracking-tight">
-                dev<span className="text-orange-500">.arch</span>
+                dell<span className="text-orange-500">theerapat</span>
               </span>
             </a>
             <p className="text-sm text-neutral-400">{t.tagline}</p>
@@ -53,7 +53,7 @@ export default function Footer({ lang }: { lang: Lang }) {
 
         <div className="mt-10 pt-6 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-neutral-500">
-            © {year} dev.arch — {t.rights}
+            © {year} delltheerapt — {t.rights}
           </p>
           <p className="text-xs text-neutral-500 flex items-center gap-1.5">
             Built with <Heart className="w-3 h-3 text-orange-500 fill-orange-500" /> using Next.js & Tailwind
