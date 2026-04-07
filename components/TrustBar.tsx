@@ -20,8 +20,8 @@ const techStack = [
 
 // รายชื่อแบรนด์จากโปรเจกต์จริงของคุณ
 const brands = [
-  "The Park Lane 15", "Perine Property", "Wash & Go", "Perine Luft", "Code Clean",
-  "The Park Lane 15", "Perine Property", "Wash & Go", "Perine Luft", "Code Clean" 
+  "Perine Property", "The Neighbors", "Wash & Go", "Perine Luft", "Code Clean",
+  "Perine Property", "The Neighbors", "Wash & Go", "Perine Luft", "Code Clean" 
 ];
 
 export default function TrustBar({ lang }: { lang: Lang }) {
